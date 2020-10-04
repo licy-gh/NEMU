@@ -78,7 +78,7 @@ static int cmd_x(char *args){
 	token = strtok(NULL, " ");
 	swaddr_t addr;
 	sscanf(token, "%x", &addr);
-	int i = 0;
+	int i = 1;
 	for(; i < n; i++){
 	    printf("%-#x: ", addr);
 		printf("%-#x\n", swaddr_read(addr, 4));
