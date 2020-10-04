@@ -77,10 +77,10 @@ static int cmd_x(char *args){
 	uint32_t n = (uint32_t)atoi(token);
 	token = strtok(NULL, " ");
 	swaddr_t addr = (swaddr_t)strtol(args, NULL, 0);
-	printf("%-#8x: ", addr);
+	printf("%-#x: ", addr);
 	int i = 0;
 	for(; i < n; i++)
-		printf("%-#8x", swaddr_read(addr + 4 * i, 4));
+		printf("%-#x ", swaddr_read(addr + 4 * i, 4));
 	printf("\n");
 	return 0;
 }
