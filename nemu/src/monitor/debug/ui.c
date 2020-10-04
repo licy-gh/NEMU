@@ -42,7 +42,7 @@ static int cmd_si(char *args) {
 		int i = 0;
 		for(;i < strlen(args); i++)
 		    if(!isdigit(args[i]))
-			    break;
+			    return 0;
 		n = (uint32_t)(atoi(args));
 	}
 	cpu_exec(n);
