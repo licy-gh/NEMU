@@ -43,7 +43,7 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-	printf("%16s, %16p, %16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
+	printf("%-16s, %-16p, %-16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
 	return 0;
 }
 
