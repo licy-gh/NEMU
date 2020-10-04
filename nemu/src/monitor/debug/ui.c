@@ -81,6 +81,7 @@ static int cmd_x(char *args){
 	uint32_t i = 0;
 	for(; i < n; i++)
 		printf("%-4x", addr + 4 * i);
+	printf("\n");
 	return 0;
 }
 
