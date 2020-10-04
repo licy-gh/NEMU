@@ -76,7 +76,8 @@ static int cmd_x(char *args){
 	char* token = strtok(args, " ");
 	uint32_t n = (uint32_t)atoi(token);
 	token = strtok(NULL, " ");
-	swaddr_t addr = (swaddr_t)strtol(args, NULL, 16);
+	swaddr_t addr;
+	sscanf(token, "%x", &addr);
 	printf("%-#x: ", addr);
 	int i = 0;
 	for(; i < n; i++)
