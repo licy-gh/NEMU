@@ -78,11 +78,11 @@ static int cmd_x(char *args){
 	token = strtok(NULL, " ");
 	swaddr_t addr;
 	sscanf(token, "%x", &addr);
-	printf("%-#x: ", addr);
 	int i = 0;
-	for(; i < n; i++)
-		printf("%-#x ", swaddr_read(addr + 4 * i, 4));
-	printf("\n");
+	for(; i < n; i++){
+	    printf("%-#x: ", addr);
+		printf("%-#x\n", swaddr_read(addr + 4 * i, 4));
+	}
 	return 0;
 }
 
