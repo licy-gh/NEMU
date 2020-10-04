@@ -81,7 +81,8 @@ static int cmd_x(char *args){
 	int i = 0;
 	for(; i < n; i++){
 	    printf("%-#x: ", addr);
-		printf("%-#x\n", swaddr_read(addr + 4 * i, 4));
+		printf("%-#x\n", swaddr_read(addr, 4));
+		addr += 4 * i;
 	}
 	return 0;
 }
