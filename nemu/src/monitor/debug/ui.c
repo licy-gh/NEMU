@@ -76,6 +76,7 @@ static int cmd_x(char *args){
 	char* token = strtok(args, " ");
 	uint32_t n = (uint32_t)atoi(token);
 	token = strtok(NULL, " ");
+	printf("%x\n", n);
 	uint32_t addr = (uint32_t)strtol(args, NULL, 0);
 	printf("%x\n", addr);
 	printf("%-#4x ", addr);
