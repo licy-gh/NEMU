@@ -68,7 +68,19 @@ static int cmd_info(char *args) {
 		printf("%-16s %-16p %-16x\n", "dl", &cpu.gpr[2]._8[1], cpu.gpr[3]._8[1]);
 		printf("%-16s %-16p %-16x\n", "bh", &cpu.gpr[3]._8[0], cpu.gpr[3]._8[0]);
 		printf("%-16s %-16p %-16x\n", "bl", &cpu.gpr[4]._8[1], cpu.gpr[3]._8[1]);
+	}
+	return 0;
+}
 
+static int cmd_x(char *args){
+	char* token = strtok(args, " ");
+	uint32_t n = (uint32_t)atoi(token);
+	token = strtok(NULL, " ");
+	uint32_t addr = (uint32_t)strtol(args, NULL, 0);
+	printf("%-8x: ", addr);
+	uint32_t i = 0;
+	for(; i < n; i++){
+		printf("%-8x", addr + 4 * i);
 	}
 	return 0;
 }
@@ -83,8 +95,10 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{ "si", "Let the program step through N instructions and then pause execution, when N is not given, the default is 1", cmd_si},
-	{ "info", "Print register status (r) or monitor point information (w)", cmd_info}
+	{ "si", "Execute n steps and pause, defalt n = 1", cmd_si},
+	{ "info", "-r print register status / -w print watchpoint information", cmd_info},
+	{ "x", "Scan memory, output consecutive N 4 bytes in hexadecimal form", cmd_x}
+	
 	/* TODO: Add more commands */
 
 };
