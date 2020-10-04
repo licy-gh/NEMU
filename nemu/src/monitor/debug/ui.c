@@ -45,6 +45,30 @@ static int cmd_si(char *args) {
 static int cmd_info(char *args) {
 	if(*args == 'r'){
 		printf("%-16s %-16p %-16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
+		printf("%-16s %-16p %-16x\n", "ecx", &cpu.gpr[1]._32, cpu.gpr[1]._32);
+		printf("%-16s %-16p %-16x\n", "edx", &cpu.gpr[2]._32, cpu.gpr[2]._32);
+		printf("%-16s %-16p %-16x\n", "ebx", &cpu.gpr[3]._32, cpu.gpr[3]._32);
+		printf("%-16s %-16p %-16x\n", "esp", &cpu.gpr[4]._32, cpu.gpr[4]._32);
+		printf("%-16s %-16p %-16x\n", "ebp", &cpu.gpr[5]._32, cpu.gpr[5]._32);
+		printf("%-16s %-16p %-16x\n", "esi", &cpu.gpr[6]._32, cpu.gpr[6]._32);
+		printf("%-16s %-16p %-16x\n", "edi", &cpu.gpr[7]._32, cpu.gpr[7]._32);
+		printf("%-16s %-16p %-16x\n", "ax", &cpu.gpr[0]._16, cpu.gpr[0]._16);
+		printf("%-16s %-16p %-16x\n", "cx", &cpu.gpr[1]._16, cpu.gpr[1]._16);
+		printf("%-16s %-16p %-16x\n", "dx", &cpu.gpr[2]._16, cpu.gpr[2]._16);
+		printf("%-16s %-16p %-16x\n", "bx", &cpu.gpr[3]._16, cpu.gpr[3]._16);
+		printf("%-16s %-16p %-16x\n", "sp", &cpu.gpr[4]._16, cpu.gpr[4]._16);
+		printf("%-16s %-16p %-16x\n", "bp", &cpu.gpr[5]._16, cpu.gpr[5]._16);
+		printf("%-16s %-16p %-16x\n", "si", &cpu.gpr[6]._16, cpu.gpr[6]._16);
+		printf("%-16s %-16p %-16x\n", "di", &cpu.gpr[7]._16, cpu.gpr[7]._16);
+		printf("%-16s %-16p %-16x\n", "ah", &cpu.gpr[0]._8[0], cpu.gpr[0]._8[0]);
+		printf("%-16s %-16p %-16x\n", "al", &cpu.gpr[0]._8[1], cpu.gpr[0]._8[1]);
+		printf("%-16s %-16p %-16x\n", "ch", &cpu.gpr[1]._8[0], cpu.gpr[1]._8[0]);
+		printf("%-16s %-16p %-16x\n", "cl", &cpu.gpr[1]._8[1], cpu.gpr[1]._8[1]);
+		printf("%-16s %-16p %-16x\n", "dh", &cpu.gpr[2]._8[0], cpu.gpr[2]._8[0]);
+		printf("%-16s %-16p %-16x\n", "dl", &cpu.gpr[2]._8[1], cpu.gpr[3]._8[1]);
+		printf("%-16s %-16p %-16x\n", "bh", &cpu.gpr[3]._8[0], cpu.gpr[3]._8[0]);
+		printf("%-16s %-16p %-16x\n", "bl", &cpu.gpr[4]._8[1], cpu.gpr[3]._8[1]);
+
 	}
 	return 0;
 }
