@@ -42,6 +42,11 @@ static int cmd_si(char *args) {
 	return 0;
 }
 
+static int cmd_info(char *args) {
+	printf("%16s, %16p, %16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -52,8 +57,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{ "si", "Let the program step through N instructions and then pause execution, when N is not given, the default is 1", cmd_si}
-
+	{ "si", "Let the program step through N instructions and then pause execution, when N is not given, the default is 1", cmd_si},
+	{ "info", "Print register status (r) or monitor point information (w)", cmd_info}
 	/* TODO: Add more commands */
 
 };
