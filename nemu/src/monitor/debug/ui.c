@@ -77,11 +77,10 @@ static int cmd_x(char *args){
 	uint32_t n = (uint32_t)atoi(token);
 	token = strtok(NULL, " ");
 	uint32_t addr = (uint32_t)strtol(args, NULL, 0);
-	printf("%-8x: ", addr);
+	printf("%-4x: ", addr);
 	uint32_t i = 0;
-	for(; i < n; i++){
-		printf("%-8x", addr + 4 * i);
-	}
+	for(; i < n; i++)
+		printf("%-4x", addr + 4 * i);
 	return 0;
 }
 
