@@ -73,10 +73,10 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args){
-	char* token = strtok(args, " ");
+	char delim[] = " ";
+	char* token = strtok(args, delim);
 	uint32_t n = (uint32_t)atoi(token);
-	token = strtok(NULL, " ");
-	token = strtok(NULL, " ");
+	token = strtok(NULL, delim);
 	swaddr_t addr = (swaddr_t)strtol(args, NULL, 0);
 	printf("%-#x: ", addr);
 	int i = 0;
