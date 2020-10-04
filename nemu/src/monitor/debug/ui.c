@@ -37,8 +37,14 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-	uint32_t n = args ? (uint32_t)(atoi(args)) : 1;
-	cpu_exec(n);
+	if(args){
+		int i = 0;
+		for(;i < strlen(args); i++)
+		    if(!isdigit(args[i]))
+			    break;
+		uint32_t n = (uint32_t)(atoi(args));
+	    cpu_exec(n);
+	}
 	return 0;
 }
 
