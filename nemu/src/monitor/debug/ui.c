@@ -76,13 +76,11 @@ static int cmd_x(char *args){
 	char* token = strtok(args, " ");
 	uint32_t n = (uint32_t)atoi(token);
 	token = strtok(NULL, " ");
-	printf("%x\n", n);
-	uint32_t addr = (uint32_t)strtol(args, NULL, 0);
-	printf("%x\n", addr);
-	printf("%-#4x ", addr);
-	uint32_t i = 0;
+	swaddr_t addr = (swaddr_t)strtol(args, NULL, 0);
+	printf("%-#6x ", addr);
+	int i = 0;
 	for(; i < n; i++)
-		printf("%-#4x", addr + 4 * i);
+		printf("%-#6x", swaddr_read(addr + 4 * i, 4));
 	printf("\n");
 	return 0;
 }
