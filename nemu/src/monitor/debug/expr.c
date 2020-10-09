@@ -148,12 +148,11 @@ static bool make_token(char *e) {
 								break;
 						}
 						if(rules[i].token_type == DECNUM || rules[i].token_type == HEXNUM){
-							if(strlen(substr_start) >= 32)
+							if(substr_len >= 32)
 							    Assert(0, "overflow!");
 							else{
-								int j;
-								for(j = 0; j < strlen(substr_start); j++)
-									tokens[nr_token].str[j] = substr_start[j];
+								strncpy (tokens[nr_token].str,substr_start,substr_len);
+								tokens[nr_token].str[substr_len]='\0';
 								printf("%s\n", tokens[nr_token].str);
 							}
 						}
