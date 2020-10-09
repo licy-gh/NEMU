@@ -186,15 +186,15 @@ bool check_parentheses(int left, int right){
 }
 
 int dominant_operator(int left, int right){
-    int i = left;
+    int i;
 	int min_priority = 114514, pos = left;
-	for(; i <= right; i++){
+	for(i = left; i <= right; i++){
 		if(priority[i]){
 			if(tokens[i].type == LBRAKT){
 				int lb_cnt = 1, j;
 				for(j = i + 1; j <= right && lb_cnt; j++){
 					if(tokens[j].type == LBRAKT) lb_cnt++;
-					if(tokens[j].type == RBRAKT) lb_cnt--;
+					if(tokens[j].type == RBRAKT && lb_cnt) lb_cnt--;
 				}
 				i = j - 1;
 			}
