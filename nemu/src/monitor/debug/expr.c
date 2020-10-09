@@ -207,7 +207,7 @@ uint32_t eval(int left, int right){
 		}
 		return num;
 	}
-	else if(check_parentheses(left, right)){
+	else if(check_parentheses(left, right)== true){
 		return eval(left + 1, right - 1);
 	}
 	else{
