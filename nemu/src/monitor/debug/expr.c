@@ -188,6 +188,7 @@ int dominant_operator(int left, int right){
 		if(priority[i] <= min_priority){
 			min_priority = priority[i];
 			pos = i;
+			printf("pos: %d\n", pos);
 		}
 	}
 	return pos;
