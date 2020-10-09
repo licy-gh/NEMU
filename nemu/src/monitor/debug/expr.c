@@ -91,6 +91,7 @@ static bool make_token(char *e) {
 				int substr_len = pmatch.rm_eo;
 
 				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
+				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. Add codes
 				 * to record the token in the array `tokens'. For certain types
@@ -147,7 +148,6 @@ static bool make_token(char *e) {
 						nr_token++;
 				}
 
-				position += substr_len;
 				break;
 			}
 		}
@@ -176,25 +176,17 @@ bool check_parentheses(int left, int right){
 }
 
 int dominant_operator(int left, int right){
-    int i;
-	int min_priority = 114514, pos = left;
+	int i, cnt = 0, min_priority = 114514, pos = left;
 	for(i = left; i <= right; i++){
 		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM){
 			continue;
 		}
-		else{
-			if(tokens[i].type == LBRAKT){
-				int lb_cnt = 1, j;
-				for(j = i + 1; j <= right && lb_cnt; j++){
-					if(tokens[j].type == LBRAKT) lb_cnt++;
-					if(tokens[j].type == RBRAKT && lb_cnt) lb_cnt--;
-				}
-				i = j - 1;
-			}
-			if(priority[i] <= min_priority){
-				min_priority = priority[i];
-				pos = i;
-			}
+		if(tokens[i].type == LBRAKT) cnt++;
+		if(tokens[i].type == RBRAKT) cnt--;
+		if(cnt) continue;
+		if(priority[i] <= min_priority){
+			min_priority = priority[i];
+			pos = i;
 		}
 	}
 	return pos;
