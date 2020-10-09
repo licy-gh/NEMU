@@ -130,6 +130,9 @@ static bool make_token(char *e) {
 							case DNOT:
 							    priority[nr_token] = 5;
 								break;
+							case LBRAKT:
+							case RBRAKT:
+							    priority[nr_token] = 6;
 							default:
 								priority[nr_token] = 0;
 								break;
