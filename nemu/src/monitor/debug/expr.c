@@ -198,7 +198,7 @@ uint32_t eval(int left, int right){
 	    Assert(0,"left greater than right\n");
 	}
 	else if(left == right){
-		int num;
+		uint32_t num;
 		if(tokens[left].type == DECNUM){
 			sscanf(tokens[left].str,"%d",&num);
 		}
