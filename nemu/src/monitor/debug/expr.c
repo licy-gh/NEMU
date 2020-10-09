@@ -210,7 +210,7 @@ int dominant_operator(int left, int right){
 
 uint32_t eval(int left, int right){
 	if(left > right){
-	    Assert(left>right,"something happened!\n");
+	    Assert(left>right,"left greater than right\n");
 		return 0;
 	}
 	else if(left == right){
@@ -231,14 +231,13 @@ uint32_t eval(int left, int right){
 		uint32_t val1 = eval(left, op - 1);
 		uint32_t val2 = eval(op + 1, right);
 		switch (tokens[op].type){
-		case PLUS:	return val1 + val2;
-		case SUB:	return val1 - val2;
-		case MULTI:	return val1 * val2;
-		case DIV:	return val1 / val2;	
-		default:	return 0;
+			case PLUS:	return val1 + val2;
+			case SUB:	return val1 - val2;
+			case MULTI:	return val1 * val2;
+			case DIV:	return val1 / val2;
 		}
 	}
-
+	return -1;
 }
 
 uint32_t expr(char *e, bool *success) {
