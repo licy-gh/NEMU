@@ -153,7 +153,7 @@ static bool make_token(char *e) {
 							else{
 								int j;
 								for(j = 0; j < strlen(substr_start); j++)
-									tokens[nr_token].str[j] = rules[i].regex[j];
+									tokens[nr_token].str[j] = substr_start[j];
 							}
 						}
 						nr_token++;
