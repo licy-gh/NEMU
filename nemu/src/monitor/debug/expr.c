@@ -141,7 +141,7 @@ static bool make_token(char *e) {
 							if(substr_len >= 32)
 							    Assert(0, "overflow!");
 							else{
-								strncpy (tokens[nr_token].str,substr_start,substr_len);
+								strncpy(tokens[nr_token].str,substr_start,substr_len);
 								tokens[nr_token].str[substr_len]='\0';
 							}
 						}
@@ -171,7 +171,7 @@ bool check_parentheses(int left, int right){
 			    r_cnt++;
 			if(r_cnt > l_cnt) return false;
 		}
-		return l_cnt == r_cnt;
+		if(l_cnt == r_cnt) return true;
 	}
 	return false;
 }
@@ -195,7 +195,7 @@ int dominant_operator(int left, int right){
 
 uint32_t eval(int left, int right){
 	if(left > right){
-	    Assert(left > right,"left greater than right\n");
+	    Assert(0,"left greater than right\n");
 	}
 	else if(left == right){
 		int num;
