@@ -162,7 +162,7 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int left, int right){
-	if(tokens[left].type == LBRAKT || tokens[right].type == RBRAKT){
+	if(tokens[left].type == LBRAKT && tokens[right].type == RBRAKT){
 		int i, l_cnt = 0, r_cnt = 0;
 		for(i = left + 1; i <= right - 1; i++){
 			if(tokens[i].type == LBRAKT)
