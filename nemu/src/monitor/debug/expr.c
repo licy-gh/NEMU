@@ -7,8 +7,15 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
-
+	NOTYPE = 256,
+	EQ,	NEQ, L, LE, G, GE,		// ==, !=, <, <=, >, >=
+	DECNUM,	HEXNUM,				// decimal number, hex number
+	AND, OR, NOT , XOR,			// &, |, ~, ^
+	PLUS, SUB, MULTI, DIV, MOD,	// +, -, *, /, %
+	LBRAKT, RBRAKT,				// (, )
+	DAND, DOR, DNOT,			// &&, ||, !
+	REGISTER_NUM				// register
+	
 	/* TODO: Add more token types */
 
 };
@@ -22,9 +29,30 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{" +",	NOTYPE},
+	{"\\+", PLUS},
+	{"-", SUB},
+	{"\\*", MULTI},
+	{"/", DIV},
+	{"%", MOD},
+	{"\\(", LBRAKT},
+	{"\\)", RBRAKT},
+	{"&", AND},
+	{"\\|", OR},
+	{"~", NOT},
+	{"\\^", XOR},
+	{"&&", DAND},
+	{"\\|\\|", DOR},
+	{"!", DNOT},
+	{"[0-9]*", DECNUM},
+	{"0[xX][0-9a-fA-F]+", HEXNUM},
+	{"!=", NEQ},
+	{"==", EQ},
+	{"<", L},
+	{"<=", LE},
+	{">", G},
+	{">=", GE},
+	{"\\$[a-zA-Z]+", REGISTER_NUM}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -76,10 +104,22 @@ static bool make_token(char *e) {
 				/* TODO: Now a new token is recognized with rules[i]. Add codes
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
-				 */
+				 */				
 
 				switch(rules[i].token_type) {
-					default: panic("please implement me");
+					case NOTYPE:
+						break;
+					default:
+						tokens[nr_token].type = rules[i].token_type;
+						if(rules[i].token_type == DECNUM || HEXNUM){
+							if(strlen(rules[i].regex) >= 32)
+							    break;
+							else{
+								int j;
+								for(j = 0; j < strlen(rules[i].regex); j++)
+									tokens[nr_token].str[j] = rules[i].regex[j];
+							}
+						}
 				}
 
 				break;
