@@ -229,7 +229,7 @@ uint32_t eval(int left, int right){
 		case SUB:	return val1 - val2;
 		case MULTI:	return val1 * val2;
 		case DIV:	return val1 / val2;	
-		default:	assert(0);
+		default:	return 0;
 		}
 	}
 
