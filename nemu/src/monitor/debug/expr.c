@@ -210,7 +210,7 @@ int dominant_operator(int left, int right){
 
 uint32_t eval(int left, int right){
 	if(left > right){
-	    Assert(0, "left greater than right");
+	    return 0;
 	}
 	else if(left == right){
 		if(tokens[left].type == DECNUM || HEXNUM){
