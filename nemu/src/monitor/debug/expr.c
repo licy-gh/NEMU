@@ -179,7 +179,10 @@ int dominant_operator(int left, int right){
     int i;
 	int min_priority = 114514, pos = left;
 	for(i = left; i <= right; i++){
-		if(priority[i]){
+		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM){
+			continue;
+		}
+		else{
 			if(tokens[i].type == LBRAKT){
 				int lb_cnt = 1, j;
 				for(j = i + 1; j <= right && lb_cnt; j++){
@@ -200,7 +203,6 @@ int dominant_operator(int left, int right){
 uint32_t eval(int left, int right){
 	if(left > right){
 	    Assert(0,"left greater than right\n");
-		return 0;
 	}
 	else if(left == right){
 		int num;
