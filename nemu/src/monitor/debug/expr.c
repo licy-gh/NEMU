@@ -177,18 +177,23 @@ bool check_parentheses(int left, int right){
 }
 
 int dominant_operator(int left, int right){
-	int i, cnt = 0, min_priority = 114514, pos = left;
+	int i, min_priority = 114514, pos = left;
 	for(i = left; i <= right; i++){
 		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM){
 			continue;
 		}
-		if(tokens[i].type == LBRAKT) cnt++;
-		if(tokens[i].type == RBRAKT) cnt--;
-		if(cnt) continue;
+		while(tokens[i].type == LBRAKT){
+			int j, cnt = 1;
+			for(j = i + 1; j <= right && cnt; j++){
+				if(tokens[j].type == LBRAKT) cnt++;
+				if(tokens[j].type == RBRAKT) cnt--;
+			}
+			i = j;
+		}
+		
 		if(priority[i] <= min_priority){
 			min_priority = priority[i];
 			pos = i;
-			printf("pos: %d\n", pos);
 		}
 	}
 	return pos;
