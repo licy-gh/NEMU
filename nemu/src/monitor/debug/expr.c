@@ -216,12 +216,12 @@ uint32_t eval(int left, int right){
 	else if(left == right){
 		int num;
 		if(tokens[left].type == DECNUM){
+			printf("%s\n", tokens[left].str);
 			sscanf(tokens[left].str,"%d",&num);
 		}
 		if(tokens[left].type == HEXNUM){
 			sscanf(tokens[left].str,"%x",&num);
 		}
-		printf("%d\n", num);
 		return num;
 	}
 	else if(check_parentheses(left, right)){
