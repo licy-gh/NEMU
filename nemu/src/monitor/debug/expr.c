@@ -220,6 +220,7 @@ uint32_t eval(int left, int right){
 			sscanf(tokens[left].str,"%d",&num);
 		}
 		if(tokens[left].type == HEXNUM){
+			printf("%s\n", tokens[left].str);
 			sscanf(tokens[left].str,"%x",&num);
 		}
 		return num;
