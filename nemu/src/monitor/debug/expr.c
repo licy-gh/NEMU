@@ -221,7 +221,7 @@ uint32_t eval(int left, int right){
 		if(tokens[left].type == HEXNUM){
 			sscanf(tokens[left].str,"%x",&num);
 		}
-		printf("%d", num);
+		printf("%d\n", num);
 		return num;
 	}
 	else if(check_parentheses(left, right)){
