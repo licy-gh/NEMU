@@ -210,13 +210,18 @@ int dominant_operator(int left, int right){
 
 uint32_t eval(int left, int right){
 	if(left > right){
-	    return 0;
+	    Assert(left>right,"something happened!\n");
+		return 0;
 	}
 	else if(left == right){
-		if(tokens[left].type == DECNUM || HEXNUM){
-			printf("%d\n", atoi(tokens[left].str));
-			return atoi(tokens[left].str);
+		int num;
+		if(tokens[left].type == DECNUM){
+			sscanf(tokens[left].str,"%d",&num);
 		}
+		if(tokens[left].type == HEXNUM){
+			sscanf(tokens[left].str,"%x",&num);
+		}
+		return num;
 	}
 	else if(check_parentheses(left, right)){
 		return eval(left + 1, right - 1);
