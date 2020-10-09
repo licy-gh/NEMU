@@ -9,10 +9,9 @@
 
 enum {
 	NOTYPE = 256,
-	EQ,	NEQ, L, LE, G, GE,		// ==, !=, <, <=, >, >=
+	EQ,	NEQ,					// ==, !=
 	DECNUM,	HEXNUM,				// decimal number, hex number
-	AND, OR, NOT , XOR,			// &, |, ~, ^
-	PLUS, SUB, MULTI, DIV, MOD,	// +, -, *, /, %
+	PLUS, SUB, MULTI, DIV,		// +, -, *, /
 	LBRAKT, RBRAKT,				// (, )
 	DAND, DOR, DNOT,			// &&, ||, !
 	REGISTER_NUM				// register
@@ -35,24 +34,15 @@ static struct rule {
 	{"-", SUB},
 	{"\\*", MULTI},
 	{"/", DIV},
-	{"%", MOD},
 	{"\\(", LBRAKT},
 	{"\\)", RBRAKT},
-	{"&", AND},
-	{"\\|", OR},
-	{"~", NOT},
-	{"\\^", XOR},
 	{"&&", DAND},
 	{"\\|\\|", DOR},
 	{"!", DNOT},
-	{"[0-9]*", DECNUM},
+	{"[0-9]+", DECNUM},
 	{"0[xX][0-9a-fA-F]+", HEXNUM},
 	{"!=", NEQ},
 	{"==", EQ},
-	{"<", L},
-	{"<=", LE},
-	{">", G},
-	{">=", GE},
 	{"\\$[a-zA-Z]+", REGISTER_NUM}
 };
 
@@ -234,9 +224,13 @@ uint32_t eval(int left, int right){
 			case SUB:	return val1 - val2;
 			case MULTI:	return val1 * val2;
 			case DIV:	return val1 / val2;
+			case EQ:	return val1 == val2;
+			case NEQ:	return val1 != val2;
+			case DAND:	return val1 && val2;
+			case DOR:	return val1 || val2;
 		}
 	}
-	return -1;
+	return -114514;
 }
 
 uint32_t expr(char *e, bool *success) {
@@ -247,6 +241,6 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	*success = true;
-	return eval(0, nr_token);
+	return eval(0, nr_token - 1);
 }
 
