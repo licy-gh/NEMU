@@ -167,8 +167,9 @@ bool check_parentheses(int left, int right){
 		for(i = left + 1; i <= right - 1; i++){
 			if(tokens[i].type == LBRAKT)
 			    l_cnt++;
-			if(tokens[i].type == RBRAKT && l_cnt)
+			if(tokens[i].type == RBRAKT)
 			    r_cnt++;
+			if(r_cnt > l_cnt) return false;
 		}
 		return l_cnt == r_cnt;
 	}
