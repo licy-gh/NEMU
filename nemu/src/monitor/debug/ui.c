@@ -94,6 +94,17 @@ static int cmd_x(char *args){
 	return 0;
 }
 
+static int cmd_p(char *args){
+	uint32_t num;
+	bool success;
+	num = expr(args, &success);
+	if(success){
+		printf("result: %d\n", num);
+		return 0;
+	}
+	return -1;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -106,7 +117,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute n steps and pause, defalt n = 1", cmd_si},
 	{ "info", "-r print register status / -w print watchpoint information", cmd_info},
-	{ "x", "Scan memory, output consecutive N 4 bytes in hexadecimal form", cmd_x}
+	{ "x", "Scan memory, output consecutive N 4 bytes in hexadecimal form", cmd_x},
+	{ "p", "calculate the expression", cmd_p}
 	
 	/* TODO: Add more commands */
 
