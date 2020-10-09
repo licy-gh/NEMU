@@ -147,12 +147,12 @@ static bool make_token(char *e) {
 								priority[nr_token] = 0;
 								break;
 						}
-						if(rules[i].token_type == DECNUM || HEXNUM){
-							if(strlen(rules[i].regex) >= 32)
+						if(rules[i].token_type == DECNUM || rules[i].token_type == HEXNUM){
+							if(strlen(substr_start) >= 32)
 							    Assert(0, "overflow!");
 							else{
 								int j;
-								for(j = 0; j < strlen(rules[i].regex); j++)
+								for(j = 0; j < strlen(substr_start); j++)
 									tokens[nr_token].str[j] = rules[i].regex[j];
 							}
 						}
