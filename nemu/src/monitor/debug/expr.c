@@ -153,7 +153,6 @@ static bool make_token(char *e) {
 							else{
 								strncpy (tokens[nr_token].str,substr_start,substr_len);
 								tokens[nr_token].str[substr_len]='\0';
-								printf("%s\n", tokens[nr_token].str);
 							}
 						}
 						nr_token++;
@@ -216,11 +215,10 @@ uint32_t eval(int left, int right){
 	else if(left == right){
 		int num;
 		if(tokens[left].type == DECNUM){
-			// printf("%s\n", tokens[left].str);
+			printf("%s\n", tokens[left].str);
 			sscanf(tokens[left].str,"%d",&num);
 		}
 		if(tokens[left].type == HEXNUM){
-			// printf("%s\n", tokens[left].str);
 			sscanf(tokens[left].str,"%x",&num);
 		}
 		return num;
