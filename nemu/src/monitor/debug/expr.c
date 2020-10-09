@@ -214,6 +214,7 @@ uint32_t eval(int left, int right){
 	}
 	else if(left == right){
 		if(tokens[left].type == DECNUM || HEXNUM){
+			printf("%d", atoi(tokens[left].str));
 			return atoi(tokens[left].str);
 		}
 	}
