@@ -196,8 +196,8 @@ int dominant_operator(int left, int right){
 				if(tokens[j].type == LBRAKT) cnt++;
 				if(tokens[j].type == RBRAKT) cnt--;
 			}
-			printf("current i = %d\n", i);
-			printf("current j = %d\n", j);
+			// printf("current i = %d\n", i);
+			// printf("current j = %d\n", j);
 			i = j;
 		}
 		if(i >= right) break;
@@ -218,7 +218,7 @@ int dominant_operator(int left, int right){
 			pos = i;
 		}
 	}
-	printf("dominate op position: %d\n", pos);
+	// printf("dominate op position: %d\n", pos);
 	return pos;
 }
 
@@ -261,7 +261,7 @@ uint32_t eval(int left, int right){
 				else Assert(0, "abababababa");
 			}
 		}
-		printf("left == right, eval done!!, num = %d\n", num);
+		// printf("left == right, eval done!!, num = %d\n", num);
 		return num;
 	}
 	else if(check_parentheses(left, right)== true){
@@ -269,11 +269,11 @@ uint32_t eval(int left, int right){
 	}
 	else{
 		int op = dominant_operator(left, right);
-		printf("op = %d\n", op);
+		// printf("op = %d\n", op);
 		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
-			printf("single calculate\n");
-			printf("val = %d\n", val);
+			// printf("single calculate\n");
+			// printf("val = %d\n", val);
 			switch (tokens[left].type){
 				case DERFE:return swaddr_read (val,4);
 				case MINUS:return -val;
@@ -281,10 +281,10 @@ uint32_t eval(int left, int right){
 				default :Assert(0, "come default\n");
 			} 
 		}
-		printf("double calculate\n");
+		// printf("double calculate\n");
 		uint32_t val1 = eval(left, op - 1);
 		uint32_t val2 = eval(op + 1, right);
-		printf("val1 = %d, val2 = %d\n", val1, val2);
+		// printf("val1 = %d, val2 = %d\n", val1, val2);
 		switch (tokens[op].type){
 			case PLUS:	return val1 + val2;
 			case SUB:	return val1 - val2;
