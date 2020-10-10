@@ -215,7 +215,7 @@ int dominant_operator(int left, int right){
 			pos = i;
 		}
 	}
-	printf("%d\n", pos);
+	printf("dominate op position: %d\n", pos);
 	return pos;
 }
 
