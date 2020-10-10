@@ -240,6 +240,7 @@ uint32_t eval(int left, int right){
 						num = cpu.eip;
 					else Assert (0,"no this register!\n");
 				else num = reg_l(i);
+				printf("----------------------\n");
 			}
 			else if (strlen(tokens[left].str) == 2) {
 				if (tokens[left].str[1] == 'x' || tokens[left].str[1] == 'p' || tokens[left].str[1] == 'i') {
