@@ -105,7 +105,7 @@ static bool make_token(char *e) {
 					case REGISTER_NUM:
 						tokens[nr_token].type = rules[i].token_type; 
 						priority[nr_token] = 0;
-						strncpy(tokens[nr_token].str,e + position + 1,substr_len-1);
+						strncpy(tokens[nr_token].str,substr_start + 1,substr_len-1);
 						printf("%s\n", tokens[nr_token].str);
 						tokens[nr_token].str[substr_len-1]='\0';
 						nr_token ++;
