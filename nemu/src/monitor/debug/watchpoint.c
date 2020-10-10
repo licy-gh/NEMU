@@ -142,7 +142,7 @@ bool check_wp() {
 		bool success = true;
 		int val = expr(curr_ptr->expression, &success);
 		if(val != curr_ptr->key_val) {
-			printf("Expr: %s\n", curr_ptr->expression);
+			printf("Watchpoint %d changed, Expr: %s\n", curr_ptr->NO, curr_ptr->expression);
 			printf("previous(hex): %#x, previous(dec): %d\n", curr_ptr->key_val, curr_ptr->key_val);
 			printf("now(hex): %#x, now(dec): %d\n", val, val);
 			curr_ptr->key_val = val;
