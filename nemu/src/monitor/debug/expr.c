@@ -30,6 +30,8 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
+	{"0[xX][0-9a-fA-F]+", HEXNUM},
+	{"[0-9]+", DECNUM},
 	{" +",	NOTYPE},
 	{"\\+", PLUS},
 	{"-", SUB},
@@ -39,11 +41,9 @@ static struct rule {
 	{"\\)", RBRAKT},
 	{"&&", DAND},
 	{"\\|\\|", DOR},
-	{"!", DNOT},
-	{"0[xX][0-9a-fA-F]+", HEXNUM},
-	{"[0-9]+", DECNUM},
 	{"!=", NEQ},
 	{"==", EQ},
+	{"!", DNOT},
 	{"\\$[a-zA-Z]+", REGISTER_NUM}
 };
 
