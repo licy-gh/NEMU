@@ -231,16 +231,19 @@ uint32_t eval(int left, int right){
 			sscanf(tokens[left].str,"%x",&num);
 		}
 		else if (tokens[left].type == REGISTER_NUM){
+			printf("----------------------0\n");
 			if (strlen(tokens[left].str) == 3) {
+				printf("----------------------1\n");
 				int i;
 				for (i = R_EAX; i <= R_EDI; i ++)
 					if (strcmp(tokens[left].str,regsl[i]) == 0) break;
+				printf("----------------------2\n");
 				if (i > R_EDI)
 					if (strcmp(tokens[left].str,"eip") == 0)
 						num = cpu.eip;
 					else Assert (0,"no this register!\n");
 				else num = reg_l(i);
-				printf("----------------------\n");
+				printf("----------------------3\n");
 			}
 			else if (strlen(tokens[left].str) == 2) {
 				if (tokens[left].str[1] == 'x' || tokens[left].str[1] == 'p' || tokens[left].str[1] == 'i') {
