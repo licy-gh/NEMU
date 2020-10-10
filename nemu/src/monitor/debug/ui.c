@@ -99,7 +99,7 @@ static int cmd_p(char *args){
 	bool success;
 	num = expr(args, &success);
 	if(success){
-		printf("result: dec:%d, hex:%x\n", num, num);
+		printf("result: dec:%d, hex:%#x\n", num, num);
 		return 0;
 	}
 	return -1;
