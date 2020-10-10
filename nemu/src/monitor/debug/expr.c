@@ -216,6 +216,7 @@ int dominant_operator(int left, int right){
 			pos = i;
 		}
 	}
+	printf("%d\n", pos);
 	printf("%d\n", tokens[pos].type);
 	return pos;
 }
