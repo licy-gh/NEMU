@@ -259,6 +259,7 @@ uint32_t eval(int left, int right){
 				else Assert(0, "abababababa");
 			}
 		}
+		printf("left == right, eval done!!, num = %d\n", num);
 		return num;
 	}
 	else if(check_parentheses(left, right)== true){
