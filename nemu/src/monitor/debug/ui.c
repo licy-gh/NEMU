@@ -121,8 +121,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute n steps and pause, defalt n = 1", cmd_si},
 	{ "info", "-r print register status / -w print watchpoint information", cmd_info},
-	{ "x", "Scan memory, output consecutive N 4 bytes in hexadecimal form", cmd_x},
-	{ "p", "calculate the expression", cmd_p},
+	{ "x", "scan memory", cmd_x},
+	{ "p", "calculate expression", cmd_p},
 	{ "w", "set watchpoint", cmd_w}
 	
 	/* TODO: Add more commands */

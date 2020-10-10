@@ -43,5 +43,22 @@ WP* new_wp(char* expressions){
 }
 
 void free_wp(WP *wp){
-
+	if(wp && head){
+		bool found_flag = false;
+		WP* current_ptr = head;
+		while(current_ptr && current_ptr->NO != wp->NO){
+			current_ptr = current_ptr->next;
+		}
+		if(current_ptr){
+			found_flag = true;
+			wp->next = free_;
+			free_ = wp;
+			printf("Successfully delete watchpoint %d", wp->NO);
+		}
+		else{
+			printf("watchpoint %d do not exist", wp->NO);
+		}
+	}
+	Assert(wp, "invalid watchpoint input!\n");
+	Assert(head, "no watchpoint here!\n");
 }
