@@ -51,7 +51,7 @@ static int cmd_si(char *args) {
 
 static int cmd_info(char *args) {
 	if(*args == 'r'){
-		printf("%-16s %-16p %-16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
+		printf("%-16s %-16p %-#16x\n", "eax", &cpu.gpr[0]._32, cpu.gpr[0]._32);
 		printf("%-16s %-16p %-16x\n", "ecx", &cpu.gpr[1]._32, cpu.gpr[1]._32);
 		printf("%-16s %-16p %-16x\n", "edx", &cpu.gpr[2]._32, cpu.gpr[2]._32);
 		printf("%-16s %-16p %-16x\n", "ebx", &cpu.gpr[3]._32, cpu.gpr[3]._32);
