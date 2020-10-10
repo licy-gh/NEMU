@@ -198,7 +198,7 @@ int dominant_operator(int left, int right){
 			}
 			printf("current i = %d\n", i);
 			printf("current j = %d\n", j);
-			i = j - 1;
+			i = j;
 		}
 		if(i >= right) break;
 		// int cnt = 0, j;
