@@ -180,18 +180,29 @@ bool check_parentheses(int left, int right){
 int dominant_operator(int left, int right){
 	int i, min_priority = 114514, pos = left;
 	for(i = left; i <= right; i++){
-		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM){
+		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM || tokens[i].type == REGISTER_NUM){
 			continue;
 		}
-		while(tokens[i].type == LBRAKT){
-			int j, cnt = 1;
-			for(j = i + 1; j <= right && cnt; j++){
-				if(tokens[j].type == LBRAKT) cnt++;
-				if(tokens[j].type == RBRAKT) cnt--;
+		// while(tokens[i].type == LBRAKT){
+		// 	int j, cnt = 1;
+		// 	for(j = i + 1; j <= right && cnt; j++){
+		// 		if(tokens[j].type == LBRAKT) cnt++;
+		// 		if(tokens[j].type == RBRAKT) cnt--;
+		// 	}
+		// 	i = j;
+		// }
+		int cnt = 0, j;
+		bool flag = true;
+		for (j = i - 1; j >= left ;j --){ 
+			if (tokens[j].type == LBRAKT && !cnt){
+				flag = false;
+				break;
 			}
-			i = j;
+			if (tokens[j].type == LBRAKT)cnt --;
+			if (tokens[j].type == RBRAKT)cnt ++; 
 		}
-		
+		if (!flag)continue;
+
 		if(priority[i] <= min_priority){
 			min_priority = priority[i];
 			pos = i;
