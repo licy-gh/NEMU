@@ -138,9 +138,9 @@ static bool make_token(char *e) {
 							case DNOT:
 							    priority[nr_token] = 5;
 								break;
-							// case LBRAKT:
-							// case RBRAKT:
-							//     priority[nr_token] = 6;
+							case LBRAKT:
+							case RBRAKT:
+							    priority[nr_token] = 6;
 							default:
 								priority[nr_token] = 0;
 								break;
@@ -269,6 +269,7 @@ uint32_t eval(int left, int right){
 	}
 	else{
 		int op = dominant_operator(left, right);
+		printf("op = %d\n", op);
 		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
 			printf("single calculate\n");
