@@ -183,25 +183,25 @@ int dominant_operator(int left, int right){
 		if(tokens[i].type == DECNUM || tokens[i].type == HEXNUM || tokens[i].type == REGISTER_NUM){
 			continue;
 		}
-		while(tokens[i].type == LBRAKT){
-			int j, cnt = 1;
-			for(j = i + 1; j <= right && cnt; j++){
-				if(tokens[j].type == LBRAKT) cnt++;
-				if(tokens[j].type == RBRAKT) cnt--;
-			}
-			i = j;
-		}
-		// int cnt = 0, j;
-		// bool flag = true;
-		// for (j = i - 1; j >= left ;j --){ 
-		// 	if (tokens[j].type == LBRAKT && !cnt){
-		// 		flag = false;
-		// 		break;
+		// while(tokens[i].type == LBRAKT){
+		// 	int j, cnt = 1;
+		// 	for(j = i + 1; j <= right && cnt; j++){
+		// 		if(tokens[j].type == LBRAKT) cnt++;
+		// 		if(tokens[j].type == RBRAKT) cnt--;
 		// 	}
-		// 	if (tokens[j].type == LBRAKT)cnt --;
-		// 	if (tokens[j].type == RBRAKT)cnt ++; 
+		// 	i = j;
 		// }
-		// if (!flag)continue;
+		int cnt = 0, j;
+		bool flag = true;
+		for (j = i - 1; j >= left ;j --){ 
+			if (tokens[j].type == LBRAKT && !cnt){
+				flag = false;
+				break;
+			}
+			if (tokens[j].type == LBRAKT)cnt --;
+			if (tokens[j].type == RBRAKT)cnt ++; 
+		}
+		if (!flag)continue;
 
 		if(priority[i] <= min_priority){
 			min_priority = priority[i];
@@ -234,7 +234,7 @@ uint32_t eval(int left, int right){
 			uint32_t val = eval (left + 1,right);
 			printf("----------------------------\n");
 			switch (tokens[left].type){
-				case DERFE:return swaddr_read(val,4);
+				case DERFE:return swaddr_read (val,4);
 				case MINUS:return -val;
 				case DNOT:return !val;
 				default :Assert(0, "come default\n");
