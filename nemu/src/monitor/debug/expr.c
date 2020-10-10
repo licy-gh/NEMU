@@ -267,7 +267,7 @@ uint32_t eval(int left, int right){
 		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
 			printf("single calculate\n");
-			printf("val = %d", val);
+			printf("val = %d\n", val);
 			switch (tokens[left].type){
 				case DERFE:return swaddr_read (val,4);
 				case MINUS:return -val;
