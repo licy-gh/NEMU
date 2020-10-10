@@ -14,7 +14,8 @@ enum {
 	PLUS, SUB, MULTI, DIV,		// +, -, *, /
 	LBRAKT, RBRAKT,				// (, )
 	DAND, DOR, DNOT,			// &&, ||, !
-	REGISTER_NUM				// register
+	REGISTER_NUM,				// register
+	MINUS, DERFE				// negative number, pointer dereference
 	
 	/* TODO: Add more token types */
 
@@ -108,7 +109,7 @@ static bool make_token(char *e) {
 						// &&, ||:			2
 						// +, -  :			3
 						// *, /  :			4
-						// !     :			5
+						// !, DEREF, MINUS:	5
 						// (, )  :			6
 						switch (tokens[nr_token].type){
 							case EQ:
@@ -239,7 +240,17 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
+	int i;
+	for(i = 0; i < nr_token; i++){
+		if(tokens[i].type == SUB && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM))){
+			tokens[i].type = MINUS;
+			priority[i] = 5;
+		}
+		if(tokens[i].type == MULTI && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM))){
+			tokens[i].type = DERFE;
+			priority[i] = 5;
+		}
+	}
 	/* TODO: Insert codes to evaluate the expression. */
 	*success = true;
 	return eval(0, nr_token - 1);
