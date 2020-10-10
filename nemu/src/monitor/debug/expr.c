@@ -196,6 +196,8 @@ int dominant_operator(int left, int right){
 				if(tokens[j].type == LBRAKT) cnt++;
 				if(tokens[j].type == RBRAKT) cnt--;
 			}
+			printf("current i = %d\n", i);
+			printf("current j = %d\n", j);
 			i = j;
 		}
 		if(i >= right) break;
