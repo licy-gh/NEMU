@@ -242,14 +242,14 @@ uint32_t expr(char *e, bool *success) {
 	}
 	int i;
 	for(i = 0; i < nr_token; i++){
-		// if(tokens[i].type == SUB && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM))){
-		// 	tokens[i].type = MINUS;
-		// 	priority[i] = 5;
-		// }
-		// if(tokens[i].type == MULTI && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM))){
-		// 	tokens[i].type = DERFE;
-		// 	priority[i] = 5;
-		// }
+		if(tokens[i].type == SUB && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM && tokens[i].type != RBRAKT))){
+			tokens[i].type = MINUS;
+			priority[i] = 5;
+		}
+		if(tokens[i].type == MULTI && (i == 0 || (tokens[i - 1].type != DECNUM && tokens[i - 1].type != HEXNUM && tokens[i - 1].type != REGISTER_NUM && tokens[i].type != RBRAKT))){
+			tokens[i].type = DERFE;
+			priority[i] = 5;
+		}
 	}
 	/* TODO: Insert codes to evaluate the expression. */
 	*success = true;
