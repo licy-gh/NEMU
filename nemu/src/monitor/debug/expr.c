@@ -266,7 +266,7 @@ uint32_t eval(int left, int right){
 		int op = dominant_operator(left, right);
 		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
-			printf("----------------------------\n");
+			printf("single calculate\n");
 			switch (tokens[left].type){
 				case DERFE:return swaddr_read (val,4);
 				case MINUS:return -val;
@@ -274,8 +274,10 @@ uint32_t eval(int left, int right){
 				default :Assert(0, "come default\n");
 			} 
 		}
+		printf("double calculate\n");
 		uint32_t val1 = eval(left, op - 1);
 		uint32_t val2 = eval(op + 1, right);
+		printf("val1 = %d, val2 = %d\n", val1, val2);
 		switch (tokens[op].type){
 			case PLUS:	return val1 + val2;
 			case SUB:	return val1 - val2;
