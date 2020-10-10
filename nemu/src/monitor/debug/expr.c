@@ -224,6 +224,7 @@ uint32_t eval(int left, int right){
 			sscanf(tokens[left].str,"%x",&num);
 		}
 		else if (tokens[left].type == REGISTER_NUM){
+			printf("-------------------------\n");
 			if (strlen(tokens[left].str) == 3) {
 				int i;
 				for (i = R_EAX; i <= R_EDI; i ++)
