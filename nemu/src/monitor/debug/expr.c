@@ -106,7 +106,6 @@ static bool make_token(char *e) {
 						tokens[nr_token].type = rules[i].token_type; 
 						priority[nr_token] = 0;
 						strncpy(tokens[nr_token].str,substr_start + 1,substr_len-1);
-						printf("%s\n", tokens[nr_token].str);
 						tokens[nr_token].str[substr_len-1]='\0';
 						nr_token ++;
 						break;
@@ -232,20 +231,15 @@ uint32_t eval(int left, int right){
 			sscanf(tokens[left].str,"%x",&num);
 		}
 		else if (tokens[left].type == REGISTER_NUM){
-			printf("----------------------0\n");
-			printf("%d\n", (int)strlen(tokens[left].str));
 			if (strlen(tokens[left].str) == 3) {
-				printf("----------------------1\n");
 				int i;
 				for (i = R_EAX; i <= R_EDI; i ++)
 					if (strcmp(tokens[left].str,regsl[i]) == 0) break;
-				printf("----------------------2\n");
 				if (i > R_EDI)
 					if (strcmp(tokens[left].str,"eip") == 0)
 						num = cpu.eip;
 					else Assert (0,"no this register!\n");
 				else num = reg_l(i);
-				printf("----------------------3\n");
 			}
 			else if (strlen(tokens[left].str) == 2) {
 				if (tokens[left].str[1] == 'x' || tokens[left].str[1] == 'p' || tokens[left].str[1] == 'i') {
