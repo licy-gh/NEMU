@@ -198,6 +198,7 @@ int dominant_operator(int left, int right){
 			}
 			i = j;
 		}
+		if(i > right) break;
 		// int cnt = 0, j;
 		// bool flag = true;
 		// for (j = i - 1; j >= left ;j --){ 
