@@ -230,7 +230,7 @@ uint32_t eval(int left, int right){
 	}
 	else{
 		int op = dominant_operator(left, right);
-		if (/*left == op || */tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
+		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
 			printf("----------------------------\n");
 			switch (tokens[left].type){
