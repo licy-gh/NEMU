@@ -234,7 +234,7 @@ uint32_t eval(int left, int right){
 			uint32_t val = eval (left + 1,right);
 			printf("----------------------------\n");
 			switch (tokens[left].type){
-				case DERFE:return swaddr_read (val,4);
+				case DERFE:return swaddr_read(val,4);
 				case MINUS:return -val;
 				case DNOT:return !val;
 				default :Assert(0, "come default\n");
