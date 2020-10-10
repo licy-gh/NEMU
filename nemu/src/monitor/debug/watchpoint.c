@@ -72,7 +72,7 @@ void free_wp(WP *wp){
 			found_flag = true;
 			wp->next = free_;
 			free_ = wp;
-			printf("Successfully delete watchpoint %d", wp->NO);
+			printf("Successfully delete watchpoint %d\n", wp->NO);
 		}
 		else{
 			printf("watchpoint %d do not exist", wp->NO);
