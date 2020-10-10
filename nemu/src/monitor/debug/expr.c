@@ -232,6 +232,7 @@ uint32_t eval(int left, int right){
 		}
 		else if (tokens[left].type == REGISTER_NUM){
 			printf("----------------------0\n");
+			printf("%d", (int)strlen(tokens[left].str));
 			if (strlen(tokens[left].str) == 3) {
 				printf("----------------------1\n");
 				int i;
