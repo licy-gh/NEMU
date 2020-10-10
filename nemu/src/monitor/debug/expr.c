@@ -216,12 +216,39 @@ uint32_t eval(int left, int right){
 	    Assert(0,"left greater than right\n");
 	}
 	else if(left == right){
-		uint32_t num;
+		uint32_t num = 0;
 		if(tokens[left].type == DECNUM){
 			sscanf(tokens[left].str,"%d",&num);
 		}
-		if(tokens[left].type == HEXNUM){
+		else if(tokens[left].type == HEXNUM){
 			sscanf(tokens[left].str,"%x",&num);
+		}
+		else if (tokens[left].type == REGISTER_NUM){
+			if (strlen(tokens[left].str) == 3) {
+				int i;
+				for (i = R_EAX; i <= R_EDI; i ++)
+					if (strcmp(tokens[left].str,regsl[i]) == 0) break;
+				if (i > R_EDI)
+					if (strcmp(tokens[left].str,"eip") == 0)
+						num = cpu.eip;
+					else Assert (0,"no this register!\n");
+				else num = reg_l(i);
+			}
+			else if (strlen(tokens[left].str) == 2) {
+				if (tokens[left].str[1] == 'x' || tokens[left].str[1] == 'p' || tokens[left].str[1] == 'i') {
+					int i;
+					for (i = R_AX; i <= R_DI; i ++)
+						if (strcmp (tokens[left].str,regsw[i]) == 0)break;
+					num = reg_w(i);
+				}
+				else if (tokens[left].str[1] == 'l' || tokens[left].str[1] == 'h') {
+					int i;
+					for (i = R_AL; i <= R_BH; i ++)
+						if (strcmp (tokens[left].str,regsb[i]) == 0)break;
+					num = reg_b(i);
+				}
+				else assert (1);
+			}
 		}
 		return num;
 	}
