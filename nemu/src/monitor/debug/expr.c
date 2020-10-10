@@ -268,7 +268,7 @@ uint32_t eval(int left, int right){
 		return eval(left + 1, right - 1);
 	}
 	else{
-		int op = dominant_operator(left, right) + 1;
+		int op = dominant_operator(left, right);
 		printf("op = %d\n", op);
 		if (left == op || tokens[op].type == DERFE || tokens[op].type == MINUS || tokens[op].type == DNOT){
 			uint32_t val = eval (left + 1,right);
