@@ -105,6 +105,10 @@ static int cmd_p(char *args){
 	return -1;
 }
 
+static int cmd_w(char *args){
+	return new_wp(args) ? 0 : -1;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -118,7 +122,8 @@ static struct {
 	{ "si", "Execute n steps and pause, defalt n = 1", cmd_si},
 	{ "info", "-r print register status / -w print watchpoint information", cmd_info},
 	{ "x", "Scan memory, output consecutive N 4 bytes in hexadecimal form", cmd_x},
-	{ "p", "calculate the expression", cmd_p}
+	{ "p", "calculate the expression", cmd_p},
+	{ "w", "set watchpoint", cmd_w}
 	
 	/* TODO: Add more commands */
 
