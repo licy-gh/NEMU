@@ -19,4 +19,10 @@ WP* new_wp(char* expressions);
 
 void free_wp(WP *wp);
 
+void delete_wp(int index);
+
+void print_wp();
+
+bool check_wp();
+
 #endif

@@ -76,6 +76,9 @@ static int cmd_info(char *args) {
 		printf("%-16s %-16p %-#16x\n", "bh", &cpu.gpr[3]._8[0], cpu.gpr[3]._8[0]);
 		printf("%-16s %-16p %-#16x\n", "bl", &cpu.gpr[4]._8[1], cpu.gpr[3]._8[1]);
 	}
+	else if(*args == 'w'){
+		print_wp();
+	}
 	return 0;
 }
 
@@ -106,7 +109,15 @@ static int cmd_p(char *args){
 }
 
 static int cmd_w(char *args){
-	return new_wp(args) ? 0 : -1;
+	new_wp(args);
+	return 0;
+}
+
+static int cmd_d(char *args){
+	int tmp;
+	sscanf(args, "%d", &tmp);
+	delete_wp(tmp);
+	return 0;
 }
 
 static int cmd_help(char *args);
@@ -123,7 +134,8 @@ static struct {
 	{ "info", "-r print register status / -w print watchpoint information", cmd_info},
 	{ "x", "scan memory", cmd_x},
 	{ "p", "calculate expression", cmd_p},
-	{ "w", "set watchpoint", cmd_w}
+	{ "w", "set watchpoint", cmd_w},
+	{ "d", "delete watchpoint", cmd_d}
 	
 	/* TODO: Add more commands */
 
