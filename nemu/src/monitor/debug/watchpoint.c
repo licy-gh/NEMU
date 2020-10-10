@@ -61,25 +61,59 @@ WP* new_wp(char* args) {
 	return work;
 }
 
-void free_wp(WP *wp){
-	if(wp && head){
-		bool found_flag = false;
-		WP* current_ptr = head;
-		while(current_ptr && current_ptr->NO != wp->NO){
-			current_ptr = current_ptr->next;
-		}
-		if(current_ptr){
-			found_flag = true;
-			wp->next = free_;
-			free_ = wp;
-			printf("Successfully delete watchpoint %d\n", wp->NO);
-		}
-		else{
-			printf("watchpoint %d do not exist", wp->NO);
+// void free_wp(WP *wp){
+// 	if(wp && head){
+// 		bool found_flag = false;
+// 		WP* current_ptr = head;
+// 		while(current_ptr && current_ptr->NO != wp->NO){
+// 			current_ptr = current_ptr->next;
+// 		}
+// 		if(current_ptr){
+// 			found_flag = true;
+// 			wp->next = free_;
+// 			free_ = wp;
+// 			printf("Successfully delete watchpoint %d\n", wp->NO);
+// 		}
+// 		else{
+// 			printf("watchpoint %d do not exist", wp->NO);
+// 		}
+// 	}
+// 	Assert(wp, "invalid watchpoint input!\n");
+// 	Assert(head, "no watchpoint here!\n");
+// }
+
+void free_wp(WP *wp) {
+	if(!head || !wp) return;
+
+	bool found_flag = false;
+	WP* current_ptr = head;
+	if(head->NO == wp->NO)
+	{
+		head = head->next;
+		current_ptr->next = free_;
+		free_ = current_ptr;
+		found_flag = true;
+	}
+	else{
+		while(current_ptr->next) {
+			if(current_ptr->next->NO == wp->NO)
+			{
+				current_ptr->next = current_ptr->next->next;
+				wp->next = free_;
+				free_ = wp;
+				found_flag = true;
+				break;
+			}
 		}
 	}
-	Assert(wp, "invalid watchpoint input!\n");
-	Assert(head, "no watchpoint here!\n");
+	if (found_flag) {
+		printf("The watchpoint of No.%d ( %s ) has been deleted!\n", wp->NO, (wp->expression));
+		(wp->expression)[0] = '\0';
+		wp->key_val = 0;
+	}
+	else {
+		printf("The watchpoint of No.%d doesn't exist, delete watchpoint failed!\n", wp->NO);
+	}
 }
 
 void delete_wp(int index){
