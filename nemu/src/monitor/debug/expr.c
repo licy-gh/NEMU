@@ -40,8 +40,8 @@ static struct rule {
 	{"&&", DAND},
 	{"\\|\\|", DOR},
 	{"!", DNOT},
-	{"\\b[0-9]+\\b", DECNUM},
-	{"\\b0[xX][0-9a-fA-F]+\\b", HEXNUM},
+	{"0[xX][0-9a-fA-F]+", HEXNUM},
+	{"[0-9]+", DECNUM},
 	{"!=", NEQ},
 	{"==", EQ},
 	{"\\$[a-zA-Z]+", REGISTER_NUM}
