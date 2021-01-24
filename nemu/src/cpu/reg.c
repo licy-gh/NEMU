@@ -42,43 +42,34 @@ void reg_test() {
 	assert(eip_sample == cpu.eip);
 }
 
-/*TODO: Show register files*/
-void display_reg() {
-	int i;
-	for(i = 0; i < 8; i ++) {
-		printf("%s\t\t0x%08x\t\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
-	}
+void sreg_load(uint8_t sreg_num){
+	Assert(cpu.cr0.protect_enable,"Not In Protect Mode!");
 
-	printf("%s\t\t0x%08x\t\t%d\n", "eip", cpu.eip, cpu.eip);
+	uint16_t idx = cpu.sreg[sreg_num].selector >> 3;//index of sreg
+
+	Assert((idx << 3) <= cpu.gdtr.limit,"Segement Selector Is Out Of The Limit!");
+
+	lnaddr_t chart_addr = cpu.gdtr.base + (idx << 3);//chart addr
+	sreg_desc -> part1 = lnaddr_read(chart_addr, 4);
+	sreg_desc -> part2 = lnaddr_read(chart_addr + 4, 4);
+
+	Assert(sreg_desc -> p == 1, "Segement Not Exist!");//p bit, whether sreg_desc exists
+	
+	
+	uint32_t bases = 0;
+	
+	bases += ((uint32_t)sreg_desc -> base1);
+	
+	bases += ((uint32_t)sreg_desc -> base2)<< 16;
+	
+	bases += ((uint32_t)sreg_desc -> base3) << 24;
+	cpu.sreg[sreg_num].base = bases;
+	//printf("%p\n",&(cpu.sreg[sreg_num].base));
+
+	uint32_t limits = 0;
+	limits += ((uint32_t)sreg_desc -> limit1);
+	limits += ((uint32_t)sreg_desc -> limit2) << 16;
+	limits += ((uint32_t)0xfff) << 24;
+	cpu.sreg[sreg_num].limit = limits;
+	if (sreg_desc -> g == 1) cpu.sreg[sreg_num].limit <<= 12;//G = 0, unit = 1B;G = 1, unit = 4KB
 }
-
-/* TODO: Get the value of register */
-uint32_t get_reg_val(const char *s, bool *success) {
-	int i;
-	*success = true;
-	for(i = 0; i < 8; i ++) {
-		if(strcmp(regsl[i], s) == 0) {
-			return reg_l(i);
-		}
-	}
-
-	for(i = 0; i < 8; i ++) {
-		if(strcmp(regsw[i], s) == 0) {
-			return reg_w(i);
-		}
-	}
-
-	for(i = 0; i < 8; i ++) {
-		if(strcmp(regsb[i], s) == 0) {
-			return reg_b(i);
-		}
-	}
-
-	if(strcmp("eip", s) == 0) {
-		return cpu.eip;
-	}
-
-	*success = false;
-	return 0;
-}
-
