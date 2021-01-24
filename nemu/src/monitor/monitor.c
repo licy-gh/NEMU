@@ -74,8 +74,23 @@ static void load_entry() {
 	fclose(fp);
 }
 
+static void init_CS(){
+	cpu.cs.base = 0;
+	cpu.cs.limit = 0xffffffff;
+}
+
+static void init_cr0(){
+	cpu.cr0.protect_enable = 0;//real mode
+	cpu.cr0.paging = 0;// paging mode
+}
+
+static void init_eflags(){
+	cpu.EFLAGS = 0x00000002;
+}
 void restart() {
 	/* Perform some initialization to restart a program */
+	init_eflags();
+
 #ifdef USE_RAMDISK
 	/* Read the file with name `argv[1]' into ramdisk. */
 	init_ramdisk();
@@ -89,4 +104,16 @@ void restart() {
 
 	/* Initialize DRAM. */
 	init_ddr3();
+
+	/* Initialize Cache. */
+	init_cache();
+
+	/* Initialize CR0. */
+	init_cr0();
+
+	/* Initialize CS. */
+	init_CS();
+
+	/* Initialize TLB. */
+	init_tlb();
 }

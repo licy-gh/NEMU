@@ -1,6 +1,6 @@
 #include "monitor/monitor.h"
-#include "monitor/watchpoint.h"
 #include "cpu/helper.h"
+#include "monitor/watchpoint.h"
 #include <setjmp.h>
 
 /* The assembly code of instructions executed is only output to the screen
@@ -8,7 +8,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INSTR_TO_PRINT 10
+#define MAX_INSTR_TO_PRINT 5000//new 9.1
 
 int nemu_state = STOP;
 
@@ -50,6 +50,7 @@ void cpu_exec(volatile uint32_t n) {
 	setjmp(jbuf);
 
 	for(; n > 0; n --) {
+
 #ifdef DEBUG
 		swaddr_t eip_temp = cpu.eip;
 		if((n & 0xffff) == 0) {
@@ -57,7 +58,7 @@ void cpu_exec(volatile uint32_t n) {
 			fputc('.', stderr);
 		}
 #endif
-
+		// printf("cs: 0x%x\n",cpu.cs.selector);
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
 		int instr_len = exec(cpu.eip);
@@ -72,19 +73,11 @@ void cpu_exec(volatile uint32_t n) {
 			printf("%s\n", asm_buf);
 		}
 #endif
-
+		//printf("eax: 0x%x\tecx: 0x%x\n",cpu.eax,cpu.ecx);
 		/* TODO: check watchpoints here. */
-                WP *wp = scan_watchpoint();
-		if(wp != NULL) {
-			puts(asm_buf);
-			printf("\n\nHint watchpoint %d at address 0x%08x, expr = %s\n", wp->NO, cpu.eip - instr_len, wp->expr);
-			printf("old value = %#08x\nnew value = %#08x\n", wp->old_val, wp->new_val);
-			wp->old_val = wp->new_val;
-			return;
-		}
-
-		if(nemu_state != RUNNING) { return; }
-
+		bool check_flag=false;
+		check_wp(&check_flag);
+		if (check_flag) nemu_state = STOP; 
 
 #ifdef HAS_DEVICE
 		extern void device_update();
@@ -92,6 +85,7 @@ void cpu_exec(volatile uint32_t n) {
 #endif
 
 		if(nemu_state != RUNNING) { return; }
+		
 	}
 
 	if(nemu_state == RUNNING) { nemu_state = STOP; }

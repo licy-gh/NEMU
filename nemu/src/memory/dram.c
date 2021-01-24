@@ -1,6 +1,7 @@
 #include "common.h"
 #include "burst.h"
 #include "misc.h"
+#include "memory/cache.h"
 
 /* Simulate the (main) behavor of DRAM.
  * Although this will lower the performace of NEMU, it makes
@@ -52,7 +53,7 @@ void init_ddr3() {
 }
 
 static void ddr3_read(hwaddr_t addr, void *data) {
-	Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
+	// Assert(addr < HW_MEM_SIZE, "physical address %x is outside of the physical memory!", addr);
 
 	dram_addr temp;
 	temp.addr = addr & ~BURST_MASK;
@@ -70,6 +71,10 @@ static void ddr3_read(hwaddr_t addr, void *data) {
 
 	/* burst read */
 	memcpy(data, rowbufs[rank][bank].buf + col, BURST_LEN);
+}
+
+void ddr3_read_replace(hwaddr_t addr, void *data){
+	ddr3_read(addr,data);
 }
 
 static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
@@ -94,6 +99,10 @@ static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 
 	/* write back to dram */
 	memcpy(dram[rank][bank][row], rowbufs[rank][bank].buf, NR_COL);
+}
+
+void ddr3_write_replace(hwaddr_t addr, void *data, uint8_t *mask){
+	ddr3_write(addr,data,mask);
 }
 
 uint32_t dram_read(hwaddr_t addr, size_t len) {
